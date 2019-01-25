@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend
   annotations:
-    opflex.cisco.com/endpoint-group: '{"policy-space":"ccp629c1a3fbcb0","name":"guestbook|frontend"}'
+    opflex.cisco.com/endpoint-group: '{"policy-space":"<PROVIDE_ACI_TENANT>","name":"guestbook|frontend"}'
 spec:
   selector:
     matchLabels:
@@ -39,7 +39,7 @@ kind: Deployment
 metadata:
   name: redis-slave
   annotations:
-    opflex.cisco.com/endpoint-group: '{"policy-space":"ccp629c1a3fbcb0","name":"guestbook|backend"}'
+    opflex.cisco.com/endpoint-group: '{"policy-space":"<PROVIDE_ACI_TENANT>","name":"guestbook|backend"}'
 spec:
   selector:
     matchLabels:
@@ -77,7 +77,7 @@ kind: Deployment
 metadata:
   name: redis-master
   annotations:
-    opflex.cisco.com/endpoint-group: '{"policy-space":"ccp629c1a3fbcb0","name":"guestbook|backend"}'
+    opflex.cisco.com/endpoint-group: '{"policy-space":"<PROVIDE_ACI_TENANT>","name":"guestbook|backend"}'
 spec:
   selector:
     matchLabels:
