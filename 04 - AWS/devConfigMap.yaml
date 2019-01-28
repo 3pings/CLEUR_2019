@@ -1,0 +1,4 @@
+- rolearn: arn:aws:iam::781254989113:role/k8s-ccp-dev
+  username: k8s-dev-user:{{SessionName}}
+  groups:
+  - k8s-developers

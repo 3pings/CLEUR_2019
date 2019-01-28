@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: message-board
+    labels:
+        app: message-board
+        name: message-board
+spec:
+    containers:
+    - name: message-board
+      image: 10.139.12.51:443/mb/message_board:version1
+      volumeMounts:
+      - name: mb-volume
+        mountPath: /sqldb
+      ports:
+      - containerPort: 5000
+      imagePullPolicy: Always
+    volumes:
+      - name: mb-volume
+        persistentVolumeClaim:
+          claimName: mb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: message-board
+  labels:
+    name: message-board
+spec:
+  type: ClusterIP
+  ports:
+  - name: service
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+  selector:
+    app: message-board
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mb-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /mb
+        backend:
+          serviceName: message-board
+          servicePort: 80
